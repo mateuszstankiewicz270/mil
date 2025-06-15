@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TikTok Profile Viewer</title>
+</head>
+<body>
+    <h1>Enter TikTok Username</h1>
+    <form id="searchForm">
+        <input type="text" id="username" placeholder="@username" required>
+        <button type="submit">Search</button>
+    </form>
+    <pre id="result"></pre>
+    <script>
+        const form = document.getElementById('searchForm');
+        form.onsubmit = async (e) => {
+            e.preventDefault();
+            const username = document.getElementById('username').value.replace('@', '');
+            const response = await fetch(`/api/profile?username=${username}`);
+            const data = await response.json();
+            const result = document.getElementById('result');
+            result.textContent = JSON.stringify(data, null, 2);
+        };
+    </script>
+</body>
+</html>
